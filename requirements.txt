@@ -1,0 +1,2 @@
+Amino.py == 1.2.10.1
+websocket-client == 0.57.0

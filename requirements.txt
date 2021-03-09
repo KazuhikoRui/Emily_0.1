@@ -1,3 +1,4 @@
 Amino.py == 1.2.10.1
 websocket-client == 0.57.0
 bs4
+-e git://github.com/Joeclinton1/google-images-download

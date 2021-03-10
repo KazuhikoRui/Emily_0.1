@@ -107,7 +107,7 @@ def loadAnketol():
 #------Код бота------#
 names = ['эмили','эми', 'эми,']
 hello = ['Ну, привет...', 'Отвали', 'Я занята', 'О боже, достали...']
-friends = ['a1ffbd29-f7d6-46a8-9916-1386fd178c1f']
+friends = ['a1ffbd29-f7d6-46a8-9916-1386fd178c1f', '62e1d276-add1-4d96-a18d-ad0486d5bc60']
 G_list = ['геншин','genshin', 'ganyu', 'diluc', 'diona', 'klee', 'xiao', 'hutao', 'zhongli', 'kaeya', 'mona', 'barbara', 'lisa', 'childe', 'venti','tartaglia', 'albedo', 'ayaka', 'rosaria']
 anketol = loadAnketol()
 

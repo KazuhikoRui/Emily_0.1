@@ -226,7 +226,7 @@ def on_message(data):
 	
 	try:
 		if content[0].lower() in names and "убранк" in content[1].lower() and data.message.author.userId == '2bea0bed-ca93-4e67-9480-017a3572e3a7':
-			if content[2][0].lower() == 'h':
+			if content[3][0].lower() == 'h':
 				remAnketol(content[2].lower())
 				sub_client.send_message(message="Анкетолог успешно убран!", chatId=chatId, replyTo = data.message.messageId)
 			else:

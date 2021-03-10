@@ -120,19 +120,26 @@ def on_message(data):
 	try:
 		if content[0].lower() in names and "привет" in content[1].lower():
 			if data.message.author.userId == '2bea0bed-ca93-4e67-9480-017a3572e3a7':
-				sub_client.send_message(message="~Здравствуйте, хозяин...", chatId=chatId)
+				sub_client.send_message(message="~Здравствуйте, хозяин...", chatId=chatId, replyTo = data.message.messageId)
 			elif data.message.author.userId in friends:
-				sub_client.send_message(message="И вам здравствуйте!", chatId=chatId)
+				sub_client.send_message(message="И вам здравствуйте!", chatId=chatId, replyTo = data.message.messageId)
 			else:
-				sub_client.send_message(message=random.choice(hello), chatId=chatId)
+				sub_client.send_message(message=random.choice(hello), chatId=chatId, replyTo = data.message.messageId)
 	except:
 		pass
       
+
+	try:
+		if content[0].lower() in names and "айди" in content[1].lower():
+			sub_client.send_message(message=data.message.author.userId, chatId=chatId, replyTo = data.message.messageId)
+	except:
+		pass
+
 #------Артики------#
 	try:
 		if content[0].lower() in names and "артик" in content[1].lower():
 			if data.message.author.userId == '2bea0bed-ca93-4e67-9480-017a3572e3a7' or data.message.author.userId in friends: 
-				sub_client.send_message(message='Уже ищу!', chatId=chatId)
+				sub_client.send_message(message='Уже ищу!', chatId=chatId, replyTo = data.message.messageId)
 				Arts(' '.join(content[2:]).lower(), 50)
 				with open('out.jpg', 'rb') as file:
 					sub_client.send_message(chatId=chatId, file=file,fileType="image")
@@ -142,7 +149,7 @@ def on_message(data):
 				Arts("genshin" + content[2].lower(), 80)        
 				with open('out.jpg', 'rb') as file:
 					sub_client.send_message(chatId=chatId, file=file,fileType="image")
-					sub_client.send_message(message='Подавись...', chatId=chatId)
+					sub_client.send_message(message='Подавись...', chatId=chatId, replyTo = data.message.messageId)
 				os.remove(".jpg")
 	except:
 		pass
@@ -152,7 +159,7 @@ def on_message(data):
 			ROOT_DIR = os.path.dirname(os.path.abspath(__file__))+'//downloads'
 			
 			if data.message.author.userId == '2bea0bed-ca93-4e67-9480-017a3572e3a7' or data.message.author.userId in friends: 
-				sub_client.send_message(message='Уже ищу!', chatId=chatId)
+				sub_client.send_message(message='Уже ищу!', chatId=chatId, replyTo = data.message.messageId)
 				G_art(' '.join(content[2:]).lower())
 				dir_path = ROOT_DIR+'//'+' '.join(content[2:]).lower()
 				with open(dir_path+'//'+random.choice(os.listdir(dir_path)), 'rb') as file:
@@ -164,7 +171,7 @@ def on_message(data):
 				dir_path = ROOT_DIR+'//genshin '+content[2].lower()       
 				with open(dir_path+'//'+random.choice(os.listdir(dir_path)), 'rb') as file:
 					sub_client.send_message(chatId=chatId, file=file,fileType="image")
-				sub_client.send_message(message='Подавись...', chatId=chatId)
+				sub_client.send_message(message='Подавись...', chatId=chatId, replyTo = data.message.messageId)
 				shutil.rmtree(ROOT_DIR)
 	except:
 		pass
@@ -227,6 +234,8 @@ def on_message(data):
 	except:
 		pass
 	
+#------Прогонка по методам ------#
+
 methods = []
 for x in client.callbacks.chat_methods:
 	methods.append(client.callbacks.event(client.callbacks.chat_methods[x].__name__)(on_message))

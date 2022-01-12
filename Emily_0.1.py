@@ -34,8 +34,8 @@ while True:
 	if time.time() >= reloadTime:
 		print("### Перезагружаюсь!... ###")
 		try:
-			client.socket.close()
-			client.socket.start()
+			#client.socket.close()
+			#client.socket.start()
 			reloadTime = 0 
 			reloadTime = time.time() + 394 
 		except:pass

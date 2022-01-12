@@ -12,7 +12,7 @@ client = aminofix.Client()
 client.login(mail, passw)
 sub_client = aminofix.SubClient(comId=os.environ['ComID'], profile=client.profile)
 
-reloadTime = time.time() + 197
+reloadTime = time.time() + 394
 print('Готова потрудиться!')
 
 
@@ -36,6 +36,8 @@ while True:
 		try:
 			client.socket.close()
 			client.socket.start()
+			reloadTime = 0 
+			reloadTime = time.time() + 394 
 		except:pass
 		print("### И снова в бой!... ###")
-		reloadTime += 197
+		reloadTime += 394

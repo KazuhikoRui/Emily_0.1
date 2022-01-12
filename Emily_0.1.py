@@ -35,7 +35,6 @@ while True:
 		print("### Перезагружаюсь!... ###")
 		try:
 			methods = []
-		except:
-			pass
+		except:pass
 		print("### И снова в бой!... ###")
 		reloadTime += 197

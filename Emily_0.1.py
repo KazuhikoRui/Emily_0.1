@@ -9,7 +9,7 @@ passw = os.environ.get('E_PASS')
 chats = [os.environ.get('RP'),os.environ.get('Flood'),os.environ.get('Ank')]
 
 client = aminofix.Client()
-client.login(os.environ['Mail'], os.environ['Pass'])
+client.login(mail, passw)
 sub_client = aminofix.SubClient(comId=os.environ['ComID'], profile=client.profile)
 
 reloadTime = time.time() + 197

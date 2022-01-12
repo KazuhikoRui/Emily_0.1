@@ -21,11 +21,11 @@ def on_message(data):
 	
 	if data.message.type == 101 and sub_client.get_user_info(data.message.author.userId).level < 6:
 		sub_client.kick(userId=data.message.author.userId, chatId=data.message.chatId, allowRejoin = False)
-		sub_client.delete_message(chatId=data.message.chatId, messageId=data.message.messageId)
+		check_chats()
 	
 def check_chats():
 	for name in chats:
-		msgs=sub_client.get_chat_messages(name, size = 30)
+		msgs=sub_client.get_chat_messages(name, size = 15)
 		for msgC, msgT, msgCon, msgA in zip(msgs.type, msgs.messageId, msgs.content, msgs.author.userId):
 			if (msgC in [56, 57, 58, 108, 109, 110] and msgCon != None) or (sub_client.get_user_info(msgA).level == 1 and msgCon != None):
 				sub_client.delete_message(chatId=name, messageId=msgT)

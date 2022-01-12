@@ -34,7 +34,8 @@ while True:
 	if time.time() >= reloadTime:
 		print("### Перезагружаюсь!... ###")
 		try:
-			methods = []
+			client.socket.close()
+			client.socket.start()
 		except:pass
 		print("### И снова в бой!... ###")
 		reloadTime += 197

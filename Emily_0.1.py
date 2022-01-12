@@ -30,7 +30,8 @@ def on_message(data):
 	
 	if data.message.type == 101 and sub_client.get_user_info(data.message.author.userId).level < 6:
 		sub_client.kick(userId=data.message.author.userId, chatId=data.message.chatId, allowRejoin = False)
-		check_chats()
+	if data.message.type in [56, 57, 58, 108, 109, 110, 101, 102] and data.message.content != None:
+		sub_client.delete_message(chatId=data.message.chatId, messageId=data.message.messageId)
 	
 methods = []
 for x in client.chat_methods:

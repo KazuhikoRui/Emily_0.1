@@ -1,2 +1,2 @@
 amino.fix
-websocket-client == 0.58.0
+websocket-client == 0.57.0

@@ -42,8 +42,6 @@ while True:
 	if time.time() >= reloadTime:
 		print("### Перезагружаюсь!... ###")
 		try:
-			client.socket.close()
-			client.socket.start()
 			methods = []
 			check_chats()
 		except:pass

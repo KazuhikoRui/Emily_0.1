@@ -30,11 +30,11 @@ def check_chats():
 			if (msgC in [56, 57, 58, 108, 109, 110] and msgCon != None) or (sub_client.get_user_info(msgA).level == 1 and msgCon != None):
 				sub_client.delete_message(chatId=name, messageId=msgT)
 			else:
-				continue
 
+				continue
 methods = []
-for x in client.callbacks.chat_methods:
-	methods.append(client.callbacks.event(client.callbacks.chat_methods[x].__name__)(on_message))
+for x in client.chat_methods:
+	methods.append(client.event(client.chat_methods[x].__name__)(on_message))
 
 
 #------Перезагрузка сокета------#

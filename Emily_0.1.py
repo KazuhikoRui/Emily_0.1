@@ -15,15 +15,6 @@ sub_client = aminofix.SubClient(comId=os.environ['ComID'], profile=client.profil
 reloadTime = time.time() + 197
 print('Готова потрудиться!')
 
-def check_chats():
-	for name in chats:
-		msgs=sub_client.get_chat_messages(name, size = 15)
-		for msgC, msgT, msgCon, msgA in zip(msgs.type, msgs.messageId, msgs.content, msgs.author.userId):
-			if (msgC in [56, 57, 58, 108, 109, 110] and msgCon != None) or (sub_client.get_user_info(msgA).level == 1 and msgCon != None):
-				sub_client.delete_message(chatId=name, messageId=msgT)
-			else:
-
-				continue
 
 def on_message(data):
 	print(data.message.author.nickname, data.message.content, data.message.chatId)
@@ -44,7 +35,7 @@ while True:
 		print("### Перезагружаюсь!... ###")
 		try:
 			methods = []
-			check_chats()
-		except:pass
+		except:
+			pass
 		print("### И снова в бой!... ###")
 		reloadTime += 197

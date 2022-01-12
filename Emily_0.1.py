@@ -15,14 +15,6 @@ sub_client = aminofix.SubClient(comId=os.environ['ComID'], profile=client.profil
 reloadTime = time.time() + 197
 print('Готова потрудиться!')
 
-
-def on_message(data):
-	print(data.message.author.nickname, data.message.content, data.message.chatId)
-	
-	if data.message.type == 101 and sub_client.get_user_info(data.message.author.userId).level < 6:
-		sub_client.kick(userId=data.message.author.userId, chatId=data.message.chatId, allowRejoin = False)
-		check_chats()
-	
 def check_chats():
 	for name in chats:
 		msgs=sub_client.get_chat_messages(name, size = 15)
@@ -32,6 +24,14 @@ def check_chats():
 			else:
 
 				continue
+
+def on_message(data):
+	print(data.message.author.nickname, data.message.content, data.message.chatId)
+	
+	if data.message.type == 101 and sub_client.get_user_info(data.message.author.userId).level < 6:
+		sub_client.kick(userId=data.message.author.userId, chatId=data.message.chatId, allowRejoin = False)
+		check_chats()
+	
 methods = []
 for x in client.chat_methods:
 	methods.append(client.event(client.chat_methods[x].__name__)(on_message))

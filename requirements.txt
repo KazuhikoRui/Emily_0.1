@@ -1,2 +1,2 @@
-amino.fix
+amino.fix == 2.1.8
 websocket-client == 0.57.0

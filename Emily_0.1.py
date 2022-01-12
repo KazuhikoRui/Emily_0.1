@@ -36,7 +36,6 @@ while True:
 		try:
 			client.socket.close()
 			client.socket.start()
-		except:
-			pass
+		except:pass
 		print("### И снова в бой!... ###")
 		reloadTime += 197

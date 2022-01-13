@@ -12,7 +12,7 @@ client = aminofix.Client()
 client.login(mail, passw)
 sub_client = aminofix.SubClient(comId=os.environ['ComID'], profile=client.profile)
 
-reloadTime = time.time() + 394
+reloadTime = time.time() + 197
 print('Готова потрудиться!')
 
 
@@ -34,10 +34,9 @@ while True:
 	if time.time() >= reloadTime:
 		print("### Перезагружаюсь!... ###")
 		try:
-			#client.socket.close()
-			#client.socket.start()
-			reloadTime = 0 
-			reloadTime = time.time() + 394 
+			client.logout()
+			client.login(mail, passw)
+			sub_client = aminofix.SubClient(comId=os.environ['ComID'], profile=client.profile)
 		except:pass
 		print("### И снова в бой!... ###")
-		reloadTime += 394
+		reloadTime += 197

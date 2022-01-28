@@ -15,6 +15,7 @@ sub_client = aminofix.SubClient(comId=os.environ['ComID'], profile=client.profil
 reloadTime = time.time() + 197
 print('Готова потрудиться!')
 
+'''
 for chat in chats:
 	msgs=sub_client.get_chat_messages(chatId=chat, size = 10)
 	for msgC, msgT, msgCon, msgA in zip(msgs.type, msgs.messageId, msgs.content, msgs.author.userId):
@@ -23,6 +24,7 @@ for chat in chats:
 			print('Успешно')
 		else: 
 			pass
+'''
 
 def on_message(data):
 	print(data.message.author.nickname, data.message.content, data.message.chatId)

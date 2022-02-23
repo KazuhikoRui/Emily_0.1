@@ -42,8 +42,11 @@ def autoclean():
 	sub_client = log(mail, passw)
 	out=clearing(sub_client)
 	unlog()
+	times+=1
 	
 #---------Телега--------
+
+times = 0
 
 bot = Bot(token = os.environ.get('Token'))
 dp = Dispatcher(bot)
@@ -52,22 +55,20 @@ dp = Dispatcher(bot)
 async def hi_func(message: types.Message):
 	await message.answer("Здравствуйте, хозяин!\nГотова потрудиться!")
 
-async def scheduler():
-    aioschedule.every().seconds.do(job)
-    while True:
-        await aioschedule.run_pending()
-        await asyncio.sleep(1)
-
 @dp.message_handler(commands=['очистка'])
-async def hi_func(message: types.Message):
+async def clear(message: types.Message):
 	await message.answer("Начинаю проверку чатов...")
 	sub_client = log(mail, passw)
 	out=clearing(sub_client)
 	if out == 0:
 		await message.answer("Системные собщения не найдены")
 	else:
-		await message.answer("Удалено:", out, "системных сообщений")
+		await message.answer(f"Удалено: {out} системных сообщений")
 	unlog()
+
+@dp.message_handler(commands=['счетчик'])
+async def chet(message: types.Message):
+	await message.answer(f"Было произведено {times} проверок")
 	
 def start_schedule_():
     schedule.every(30).minutes.do(autoclean)

@@ -27,13 +27,13 @@ def unlog():
 	client.logout()
 	
 def clearing(sub_client):
-	i=0
+	i = 0
 	for chat in chats:
 		msgs=sub_client.get_chat_messages(chatId=chat, size = 30)
 		for msgC, msgT, msgCon, msgA in zip(msgs.type, msgs.messageId, msgs.content, msgs.author.userId):
 			if (msgC in [56, 57, 58, 108, 109, 110] and msgCon != None) or (sub_client.get_user_info(msgA).level == 1 and msgCon != None):
 				sub_client.delete_message(chatId=chat, messageId=msgT)
-				i+=1
+				i = i + 1
 			else: 
 				pass
 		return i
@@ -42,7 +42,8 @@ def autoclean():
 	sub_client = log(mail, passw)
 	out=clearing(sub_client)
 	unlog()
-	times+=1
+	print('Успешно')
+	times = times + 1
 	
 #---------Телега--------
 

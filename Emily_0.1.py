@@ -2,51 +2,80 @@ import aminofix
 import os
 import time
 import random
+from aiogram import Bot, Dispatcher, executor, types
+import threading
+import schedule
 
-#------Инициализация------#
+
+
 mail = os.environ.get('E_NAME')
 passw = os.environ.get('E_PASS')
 chats = [os.environ.get('RP'),os.environ.get('Flood'),os.environ.get('Ank')]
 
-client = aminofix.Client()
-client.login(mail, passw)
-sub_client = aminofix.SubClient(comId=os.environ['ComID'], profile=client.profile)
-
-reloadTime = time.time() + 197
 print('Готова потрудиться!')
 
-'''
-for chat in chats:
-	msgs=sub_client.get_chat_messages(chatId=chat, size = 10)
-	for msgC, msgT, msgCon, msgA in zip(msgs.type, msgs.messageId, msgs.content, msgs.author.userId):
-		if (msgC in [56, 57, 58, 108, 109, 110] and msgCon != None) or (sub_client.get_user_info(msgA).level == 1 and msgCon != None):
-			sub_client.delete_message(chatId=chat, messageId=msgT)
-			print('Успешно')
-		else: 
-			pass
-'''
+client = aminofix.Client()
 
-def on_message(data):
-	print(data.message.author.nickname, data.message.content, data.message.chatId)
+#---------Набор функций--------
+
+def log(botLog, botPass):
+	client.login(botLog, botPass)
+	sub_client = aminofix.SubClient(comId=os.environ['ComID'], profile=client.profile)
+	return sub_client
 	
-	if data.message.type == 101 and sub_client.get_user_info(data.message.author.userId).level < 6:
-		sub_client.kick(userId=data.message.author.userId, chatId=data.message.chatId, allowRejoin = False)
-	if data.message.type in [56, 57, 58, 108, 109, 110, 101, 102] and data.message.content != None:
-		sub_client.delete_message(chatId=data.message.chatId, messageId=data.message.messageId)
+def unlog():
+	client.logout()
 	
-methods = []
-for x in client.chat_methods:
-	methods.append(client.event(client.chat_methods[x].__name__)(on_message))
+def clearing(sub_client):
+	i=0
+	for chat in chats:
+		msgs=sub_client.get_chat_messages(chatId=chat, size = 30)
+		for msgC, msgT, msgCon, msgA in zip(msgs.type, msgs.messageId, msgs.content, msgs.author.userId):
+			if (msgC in [56, 57, 58, 108, 109, 110] and msgCon != None) or (sub_client.get_user_info(msgA).level == 1 and msgCon != None):
+				sub_client.delete_message(chatId=chat, messageId=msgT)
+				i+=1
+			else: 
+				pass
+		return i
+
+def autoclean():
+	sub_client = log(mail, passw)
+	out=clearing(sub_client)
+	unlog()
+	
+#---------Телега--------
+
+bot = Bot(token = os.environ.get('Token'))
+dp = Dispatcher(bot)
+
+@dp.message_handler(commands=['start'])
+async def hi_func(message: types.Message):
+	await message.answer("Здравствуйте, хозяин!\nГотова потрудиться!")
+
+async def scheduler():
+    aioschedule.every().seconds.do(job)
+    while True:
+        await aioschedule.run_pending()
+        await asyncio.sleep(1)
+
+@dp.message_handler(commands=['очистка'])
+async def hi_func(message: types.Message):
+	await message.answer("Начинаю проверку чатов...")
+	sub_client = log(mail, passw)
+	out=clearing(sub_client)
+	if out == 0:
+		await message.answer("Системные собщения не найдены")
+	else:
+		await message.answer("Удалено:", out, "системных сообщений")
+	unlog()
+	
+def start_schedule_():
+    schedule.every(30).minutes.do(autoclean)
+
+    while True:
+        schedule.run_pending()
 
 
-#------Перезагрузка сокета------#
-while True:
-	if time.time() >= reloadTime:
-		print("### Перезагружаюсь!... ###")
-		try:
-			client.logout()
-			client.login(mail, passw)
-			sub_client = aminofix.SubClient(comId=os.environ['ComID'], profile=client.profile)
-		except:pass
-		print("### И снова в бой!... ###")
-		reloadTime += 197
+t = threading.Thread(target=start_schedule_, name="Thread")
+t.start()	
+executor.start_polling(dp, skip_updates=True)

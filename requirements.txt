@@ -3,5 +3,4 @@ websocket-client == 0.57.0
 aiohttp
 websockets
 aiogram
-threading
 schedule

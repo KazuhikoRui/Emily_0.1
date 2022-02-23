@@ -13,6 +13,7 @@ passw = os.environ.get('E_PASS')
 chats = [os.environ.get('RP'),os.environ.get('Flood'),os.environ.get('Ank')]
 
 print('Готова потрудиться!')
+times = 0
 
 client = aminofix.Client()
 
@@ -43,11 +44,10 @@ def autoclean():
 	out=clearing(sub_client)
 	unlog()
 	print('Успешно')
+	global times
 	times = times + 1
 	
 #---------Телега--------
-
-times = 0
 
 bot = Bot(token = os.environ.get('Token'))
 dp = Dispatcher(bot)
@@ -69,7 +69,7 @@ async def clear(message: types.Message):
 
 @dp.message_handler(commands=['счетчик'])
 async def chet(message: types.Message):
-	await message.answer(f"Было произведено {times} проверок")
+	await message.answer(f"Проверок было: {times}")
 	
 def start_schedule_():
     schedule.every(30).minutes.do(autoclean)

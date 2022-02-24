@@ -86,15 +86,16 @@ async def chet(message: types.Message):
 	
 @dp.message_handler(commands=['загрузить рп'])
 async def loaderRP(message: types.Message):
-		await message.answer(loadfrom(sub_client, os.environ.get('RP')))
+	print('1')
+	await message.answer(loadfrom(sub_client, os.environ.get('RP')))
 		
 @dp.message_handler(commands=['загрузить флуд'])
 async def loaderFlood(message: types.Message):
-		await message.answer(loadfrom(sub_client, os.environ.get('Flood')))
+	await message.answer(loadfrom(sub_client, os.environ.get('Flood')))
 
 @dp.message_handler(commands=['загрузить анк'])
 async def loaderAnk(message: types.Message):
-		await message.answer(loadfrom(sub_client, os.environ.get('Ank')))
+	await message.answer(loadfrom(sub_client, os.environ.get('Ank')))
 
 	
 def start_schedule_():

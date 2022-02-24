@@ -89,11 +89,11 @@ async def loaderRP(message: types.Message):
 	print('1')
 	await message.answer(loadfrom(sub_client, os.environ.get('RP')))
 		
-@dp.message_handler(commands=['загрузить флуд'])
+@dp.message_handler(commands=['загрузить_флуд'])
 async def loaderFlood(message: types.Message):
 	await message.answer(loadfrom(sub_client, os.environ.get('Flood')))
 
-@dp.message_handler(commands=['загрузить анк'])
+@dp.message_handler(commands=['загрузить_анк'])
 async def loaderAnk(message: types.Message):
 	await message.answer(loadfrom(sub_client, os.environ.get('Ank')))
 

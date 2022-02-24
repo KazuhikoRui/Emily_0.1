@@ -43,16 +43,6 @@ def clearing(sub_client):
 				pass
 		return i
 
-def loadfrom(sub_client, chat):
-	ans = ''
-	msgs=sub_client.get_chat_messages(chatId=chat, size = 30)
-	for msgC, msgT, msgCon, msgA in zip(msgs.type, msgs.messageId, msgs.content, msgs.author.userId):
-		print(msgC)
-		ans = ans + str(msgCon) + ' ' + str(msgC) + '\n'
-	print(ans)
-	return ans
-	
-
 def autoclean():
 	sub_client = log(mail, passw)
 	out = clearing(sub_client)
@@ -83,21 +73,6 @@ async def clear(message: types.Message):
 @dp.message_handler(commands=['счетчик'])
 async def chet(message: types.Message):
 	await message.answer(f"Проверок было: {times}")
-	
-@dp.message_handler(commands=['рп'])
-async def loaderRP(message: types.Message):
-	sub_client = log(mail, passw)
-	await message.answer(loadfrom(sub_client, os.environ.get('RP')))
-		
-@dp.message_handler(commands=['флуд'])
-async def loaderFlood(message: types.Message):
-	sub_client = log(mail, passw)
-	await message.answer(loadfrom(sub_client, os.environ.get('Flood')))
-
-@dp.message_handler(commands=['анк'])
-async def loaderAnk(message: types.Message):
-	sub_client = log(mail, passw)
-	await message.answer(loadfrom(sub_client, os.environ.get('Ank')))
 
 	
 def start_schedule_():

@@ -84,7 +84,7 @@ async def chet(message: types.Message):
 	
 @dp.message_handler(commands=['загрузить'])
 async def loaderfrom(message: types.Message):
-	a = await message.answer(f"Из какого чата вывести сообщения?")
+	a = await message.reply(f"Из какого чата вывести сообщения?")
 	if a == 'Рп':
 		await message.answer(loadfrom(sub_client, os.environ.get('RP')))
 	elif a == 'Флуд':

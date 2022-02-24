@@ -20,32 +20,35 @@ client = aminofix.Client()
 #---------Набор функций--------
 
 def log(botLog, botPass):
+	global client
 	client.login(botLog, botPass)
 	sub_client = aminofix.SubClient(comId=os.environ['ComID'], profile=client.profile)
 	return sub_client
 	
 def unlog():
+	global client
 	client.logout()
 	
 def clearing(sub_client):
 	i = 0
+	#global chats
+	print(chats)
 	for chat in chats:
 		msgs=sub_client.get_chat_messages(chatId=chat, size = 30)
 		for msgC, msgT, msgCon, msgA in zip(msgs.type, msgs.messageId, msgs.content, msgs.author.userId):
 			if (msgC in [56, 57, 58, 108, 109, 110] and msgCon != None) or (sub_client.get_user_info(msgA).level == 1 and msgCon != None):
 				sub_client.delete_message(chatId=chat, messageId=msgT)
-				i = i + 1
+				i+=1
 			else: 
 				pass
 		return i
 
 def autoclean():
 	sub_client = log(mail, passw)
-	out=clearing(sub_client)
+	out = clearing(sub_client)
 	unlog()
-	print('Успешно')
 	global times
-	times = times + 1
+	times+=1
 	
 #---------Телега--------
 
@@ -60,7 +63,7 @@ async def hi_func(message: types.Message):
 async def clear(message: types.Message):
 	await message.answer("Начинаю проверку чатов...")
 	sub_client = log(mail, passw)
-	out=clearing(sub_client)
+	out = clearing(sub_client)
 	if out == 0:
 		await message.answer("Системные собщения не найдены")
 	else:

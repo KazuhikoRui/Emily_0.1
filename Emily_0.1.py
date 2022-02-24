@@ -48,7 +48,7 @@ def loadfrom(sub_client, chat):
 	msgs=sub_client.get_chat_messages(chatId=chat, size = 30)
 	for msgC, msgT, msgCon, msgA in zip(msgs.type, msgs.messageId, msgs.content, msgs.author.userId):
 		print(msgC)
-		ans = ans + msgCon + ' ' + msgC + '\n'
+		ans = ans + str(msgCon) + ' ' + str(msgC) + '\n'
 	print(ans)
 	return ans
 	

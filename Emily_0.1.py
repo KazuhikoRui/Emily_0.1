@@ -84,17 +84,19 @@ async def clear(message: types.Message):
 async def chet(message: types.Message):
 	await message.answer(f"Проверок было: {times}")
 	
-@dp.message_handler(commands=['загрузить_рп'])
+@dp.message_handler(commands=['рп'])
 async def loaderRP(message: types.Message):
-	print('1')
+	sub_client = log(mail, passw)
 	await message.answer(loadfrom(sub_client, os.environ.get('RP')))
 		
-@dp.message_handler(commands=['загрузить_флуд'])
+@dp.message_handler(commands=['флуд'])
 async def loaderFlood(message: types.Message):
+	sub_client = log(mail, passw)
 	await message.answer(loadfrom(sub_client, os.environ.get('Flood')))
 
-@dp.message_handler(commands=['загрузить_анк'])
+@dp.message_handler(commands=['анк'])
 async def loaderAnk(message: types.Message):
+	sub_client = log(mail, passw)
 	await message.answer(loadfrom(sub_client, os.environ.get('Ank')))
 
 	

@@ -84,7 +84,7 @@ async def clear(message: types.Message):
 async def chet(message: types.Message):
 	await message.answer(f"Проверок было: {times}")
 	
-@dp.message_handler(commands=['загрузить рп'])
+@dp.message_handler(commands=['загрузить_рп'])
 async def loaderRP(message: types.Message):
 	print('1')
 	await message.answer(loadfrom(sub_client, os.environ.get('RP')))

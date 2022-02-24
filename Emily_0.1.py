@@ -82,17 +82,18 @@ async def clear(message: types.Message):
 async def chet(message: types.Message):
 	await message.answer(f"Проверок было: {times}")
 	
-@dp.message_handler(commands=['загрузить'])
-async def loaderfrom(message: types.Message):
-	a = await message.reply(f"Из какого чата вывести сообщения?")
-	if a == 'Рп':
+@dp.message_handler(commands=['загрузить рп'])
+async def loaderRP(message: types.Message):
 		await message.answer(loadfrom(sub_client, os.environ.get('RP')))
-	elif a == 'Флуд':
+		
+@dp.message_handler(commands=['загрузить флуд'])
+async def loaderFlood(message: types.Message):
 		await message.answer(loadfrom(sub_client, os.environ.get('Flood')))
-	elif a == 'Анкета':
+
+@dp.message_handler(commands=['загрузить анк'])
+async def loaderAnk(message: types.Message):
 		await message.answer(loadfrom(sub_client, os.environ.get('Ank')))
-	else:
-		await message.answer('Ошибка ввода')
+
 	
 def start_schedule_():
     schedule.every(30).minutes.do(autoclean)

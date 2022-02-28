@@ -10,7 +10,7 @@ import schedule
 
 mail = os.environ.get('E_NAME')
 passw = os.environ.get('E_PASS')
-chats = [os.environ.get('RP'),os.environ.get('Flood'),os.environ.get('Ank')]
+chats = [os.environ.get('RP'), os.environ.get('Flood'), os.environ.get('Ank')]
 
 print('Готова потрудиться!')
 times = 0
@@ -32,7 +32,6 @@ def unlog():
 def clearing(sub_client):
 	i = 0
 	global chats
-	print(chats)
 	for chat in chats:
 		msgs=sub_client.get_chat_messages(chatId=chat, size = 30)
 		for msgC, msgT, msgCon, msgA in zip(msgs.type, msgs.messageId, msgs.content, msgs.author.userId):
@@ -44,6 +43,8 @@ def clearing(sub_client):
 		return i
 
 def autoclean():
+	global mail
+	global passw
 	sub_client = log(mail, passw)
 	out = clearing(sub_client)
 	unlog()

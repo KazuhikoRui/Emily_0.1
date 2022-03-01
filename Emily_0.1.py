@@ -31,11 +31,11 @@ def unlog():
 	
 def clearing(sub_client):
 	i = 0
-	global chats
+	chats = [os.environ.get('RP'), os.environ.get('Flood'), os.environ.get('Ank')]
 	for chat in chats:
 		msgs=sub_client.get_chat_messages(chatId=chat, size = 30)
 		for msgC, msgT, msgCon, msgA in zip(msgs.type, msgs.messageId, msgs.content, msgs.author.userId):
-			if (msgC in [56, 57, 58, 108, 109, 110] and msgCon != None) or (sub_client.get_user_info(msgA).level == 1 and msgCon != None):
+			if (msgC in [53, 54, 55, 56, 57, 58, 108, 109, 110] and msgCon != None) or (sub_client.get_user_info(msgA).level == 1 and msgCon != None):
 				sub_client.delete_message(chatId=chat, messageId=msgT)
 				i+=1
 			else: 
